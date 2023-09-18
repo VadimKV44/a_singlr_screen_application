@@ -47,7 +47,7 @@ class PersonItemWidget extends StatelessWidget {
                 style: MainStyles.kBlackColorW400(24.0),
               ),
               Text(
-                person.gender == Gender.male ? 'Man' : 'Woman',
+                person.gender!,
                 style: MainStyles.kBlackColorW400(24.0),
               ),
             ],

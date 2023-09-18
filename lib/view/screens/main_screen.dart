@@ -1,5 +1,8 @@
-import 'package:a_single_screen_application/model/local_storage/local_storage.dart';
+import 'package:a_single_screen_application/model/models/person_model.dart';
+import 'package:a_single_screen_application/presenter/persons.dart';
 import 'package:a_single_screen_application/view/consts/colors.dart';
+import 'package:a_single_screen_application/view/consts/strings.dart';
+import 'package:a_single_screen_application/view/consts/styles.dart';
 import 'package:a_single_screen_application/view/widgets/custom_text_field_widget.dart';
 import 'package:a_single_screen_application/view/widgets/person_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,14 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final TextEditingController _controller = TextEditingController();
+
+  final _persons = Persons([]);
+
+  @override
+  void initState() {
+    super.initState();
+    _persons.readPersons();
+  }
 
   @override
   void dispose() {
@@ -38,11 +49,22 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: persons.length,
-                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 24.0, right: 24.0),
-                  itemBuilder: (context, index) {
-                    return PersonItemWidget(person: persons[index]);
+                child: StreamBuilder(
+                  stream: _persons.personsUpdate,
+                  builder: (context, snapshot) {
+                    return snapshot.hasData
+                        ? ListView.builder(
+                            itemCount: snapshot.data?.length,
+                            padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 24.0, right: 24.0),
+                            itemBuilder: (context, index) {
+                              List<Person>? persons = snapshot.data;
+                              return PersonItemWidget(person: persons![index]);
+                            },
+                          )
+                        : Text(
+                            Strings.noData,
+                            style: MainStyles.kBlackColorW400(30.0),
+                          );
                   },
                 ),
               ),

@@ -7,11 +7,9 @@ class Person {
     required this.gender,
   });
 
-  final String? id;
+  String? id;
   final String? name;
   final String? surname;
   final int? age;
-  final Gender? gender;
+  final String? gender;
 }
-
-enum Gender { male, female }

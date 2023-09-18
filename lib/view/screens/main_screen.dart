@@ -17,12 +17,12 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final TextEditingController _controller = TextEditingController();
 
-  final _persons = Persons([]);
+  final persons = Persons([]);
 
   @override
   void initState() {
     super.initState();
-    _persons.readPersons();
+    persons.readPersons();
   }
 
   @override
@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
               Expanded(
                 child: StreamBuilder(
-                  stream: _persons.personsUpdate,
+                  stream: persons.personsUpdate,
                   builder: (context, snapshot) {
                     return snapshot.hasData
                         ? ListView.builder(

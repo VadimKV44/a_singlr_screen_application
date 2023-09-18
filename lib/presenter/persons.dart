@@ -4,7 +4,7 @@ import 'package:rxdart/rxdart.dart';
 
 class Persons {
   List<Person> _persons = [];
-  List<Person> _filterPersons = [];
+  List<Person> _filteredPersons = [];
   List<Person> _sortPersons = [];
 
   List<Person> get count => _persons;
@@ -20,10 +20,10 @@ class Persons {
 
   void search(String text) {
     if (text.isNotEmpty) {
-      _filterPersons = _persons.where((Person data) {
+      _filteredPersons = _persons.where((Person data) {
         return data.name!.toLowerCase().contains(text.toLowerCase());
       }).toList();
-      personsUpdate.add(_filterPersons);
+      personsUpdate.add(_filteredPersons);
     } else {
       personsUpdate.add(_persons);
     }

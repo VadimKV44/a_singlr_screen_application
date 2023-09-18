@@ -17,7 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final TextEditingController _controller = TextEditingController();
-  bool sort = false;
+  bool isSorted = false;
 
   final persons = Persons([]);
 
@@ -58,8 +58,8 @@ class _MainScreenState extends State<MainScreen> {
                     const SizedBox(width: 10.0),
                     CustomButtonWidget(
                       onTap: () {
-                        sort = ! sort;
-                        persons.sort(sort);
+                        isSorted = !isSorted;
+                        persons.sort(isSorted);
                       },
                     ),
                   ],

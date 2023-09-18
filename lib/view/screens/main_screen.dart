@@ -3,6 +3,7 @@ import 'package:a_single_screen_application/presenter/persons.dart';
 import 'package:a_single_screen_application/view/consts/colors.dart';
 import 'package:a_single_screen_application/view/consts/strings.dart';
 import 'package:a_single_screen_application/view/consts/styles.dart';
+import 'package:a_single_screen_application/view/widgets/custom_button_widget.dart';
 import 'package:a_single_screen_application/view/widgets/custom_text_field_widget.dart';
 import 'package:a_single_screen_application/view/widgets/person_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final TextEditingController _controller = TextEditingController();
+  bool sort = false;
 
   final persons = Persons([]);
 
@@ -43,9 +45,24 @@ class _MainScreenState extends State<MainScreen> {
               const SizedBox(height: 20.0),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: CustomTextFieldWidget(
-                  controller: _controller,
-                  onChanged: (value) {},
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextFieldWidget(
+                        controller: _controller,
+                        onChanged: (value) {
+                          persons.search(value);
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 10.0),
+                    CustomButtonWidget(
+                      onTap: () {
+                        sort = ! sort;
+                        persons.sort(sort);
+                      },
+                    ),
+                  ],
                 ),
               ),
               Expanded(
